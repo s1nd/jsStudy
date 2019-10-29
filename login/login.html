@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <label for="un"><input type="text" id="un" placeholder="username"></label>
+    <label for="pw"><input type="password" id="pw" placeholder="password"></label>
+    <input type="button" value="login" onclick="send()">
+    <div id="res">please login first</div>
+</body>
+<script>
+function send(){
+    let un = document.getElementById("un")
+    let pw = document.getElementById("pw")
+    let res = document.getElementById("res")
+    let unVal = un.value
+    let pwVal = pw.value
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "http://127.0.0.1:3000", true)
+    // xhr.setRequestHeader("content-type","application/x-www-form-urlencoded")
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState === 4 && xhr.status === 200){
+           res.innerHTML = xhr.responseText
+        }
+    }
+    xhr.send(`ps=${pwVal}&un=${unVal}`)
+    // alert(1)
+}
+</script>
+</html>
